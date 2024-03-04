@@ -1,6 +1,6 @@
 {
   "name": "@blade86/capacitor-udp",
-  "version": "0.5.38",
+  "version": "0.5.40",
   "private": false,
   "description": "UDP Plugin for CapacitorJS inspired by the UDP Plugin of https://github.com/unitree-czk/capacitor-udp",
   "main": "dist/plugin.cjs.js",
@@ -82,6 +82,7 @@
     }
   },
   "dependencies": {
-    "@capacitor/docgen": "^0.2.1"
+    "@capacitor/docgen": "^0.2.1",
+    "dgram-as-promised": "^5.0.1"
   }
 }

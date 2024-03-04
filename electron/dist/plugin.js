@@ -2,19 +2,20 @@
 
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.UDP = void 0;
-// import { registerPlugin } from '@capacitor/core'
+const dgram_as_promised_1 = require("dgram-as-promised");
 const events_1 = require("events");
-// const UDP = registerPlugin<UDPPlugin>('UDP', {
-//     // web: () => import('./web').then(m => new m.DialogWeb()),
-//     electron: () => (window as any).CapacitorCustomPlatform.plugins.UDPElectron
-//   });
+let socket;
+const PORT = 21324;
+let message;
 class UDP extends events_1.EventEmitter {
-    constructor() {
-        super();
-    }
-    send(options) {
-        console.log(options);
-        throw new Error('Method not implemented YZ.');
+    async send(options) {
+        message = Buffer.from(atob(options.buffer), 'utf8');
+        try {
+            await (socket === null || socket === void 0 ? void 0 : socket.send(message, 0, message.length, options.port || PORT, options.address));
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
     setPaused(options) {
         console.log(options);
@@ -41,18 +42,29 @@ class UDP extends events_1.EventEmitter {
     }
     create(options) {
         console.log(options);
-        throw new Error('Method not implemented YZ.');
+        socket = dgram_as_promised_1.DgramAsPromised.createSocket('udp4');
+        return Promise.resolve({ socketId: 0, ipv4: '0.0.0.0', ipv6: '::' });
     }
     closeAllSockets() {
         throw new Error('Method not implemented YZ.');
     }
-    close(options) {
+    async close(options) {
         console.log(options);
-        throw new Error('Method not implemented YZ.');
+        try {
+            await (socket === null || socket === void 0 ? void 0 : socket.close());
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
-    bind(options) {
+    async bind(options) {
         console.log(options);
-        throw new Error('Method not implemented YZ.');
+        try {
+            await (socket === null || socket === void 0 ? void 0 : socket.bind(options.port || PORT, options.address));
+        }
+        catch (error) {
+            console.error(error);
+        }
     }
     update(options) {
         console.log(options);

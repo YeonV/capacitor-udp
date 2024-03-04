@@ -1,19 +1,21 @@
-// import { registerPlugin } from '@capacitor/core'
+import type { SocketAsPromised } from 'dgram-as-promised';
+import { DgramAsPromised } from 'dgram-as-promised'
 import { EventEmitter } from 'events';
 
 import type { UDPPlugin } from '../../src/definitions'
 
-// const UDP = registerPlugin<UDPPlugin>('UDP', {
-//     // web: () => import('./web').then(m => new m.DialogWeb()),
-//     electron: () => (window as any).CapacitorCustomPlatform.plugins.UDPElectron
-//   });
+let socket: SocketAsPromised
+const PORT = 21324
+let message: Buffer
+
+
 export class UDP extends EventEmitter implements UDPPlugin {
-    constructor() {
-        super();       
-    }
-    send(options: { socketId: number; address: string; port: number; buffer: string; }): Promise<any> {
-        console.log(options)
-        throw new Error('Method not implemented YZ.');
+    async send(options: { socketId: number; address: string; port: number; buffer: string; }): Promise<any> {
+        try {
+            await socket?.send(options.buffer, 0, message.length, options.port || PORT, options.address)
+        } catch (error) {
+            console.error(error)
+        }
     }
     setPaused(options: { socketId: number; paused: boolean; }): Promise<any> {
         console.log(options)
@@ -40,18 +42,27 @@ export class UDP extends EventEmitter implements UDPPlugin {
     }
     create(options?: { properties?: { name?: string; bufferSize?: number; }; }): Promise<{ socketId: number; ipv4: string; ipv6: string; }> {
         console.log(options)
-        throw new Error('Method not implemented YZ.');
+        socket = DgramAsPromised.createSocket('udp4')
+        return Promise.resolve({ socketId: 0, ipv4: '0.0.0.0', ipv6: '::' })
     }
     closeAllSockets(): Promise<any> {
         throw new Error('Method not implemented YZ.');
     }
-    close(options: { socketId: number; }): Promise<any> {
+    async close(options: { socketId: number; }): Promise<any> {
         console.log(options)
-        throw new Error('Method not implemented YZ.');
+        try {
+            await socket?.close()
+        } catch (error) {
+            console.error(error)
+        }
     }
-    bind(options: { socketId: number; address: string; port: number; }): Promise<any> {
+    async bind(options: { socketId: number; address: string; port: number; }): Promise<any> {
         console.log(options)
-        throw new Error('Method not implemented YZ.');
+        try {
+            await socket?.bind(options.port || PORT, options.address)
+        } catch (error) {
+            console.error(error)
+        }
     }
     update(options: { socketId: number; properties: { name?: string; bufferSize?: number; }; }): Promise<any> {
         console.log(options)
