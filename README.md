@@ -30,6 +30,7 @@ npx cap sync
 * [`addListener('receive', ...)`](#addlistenerreceive)
 * [`addListener('receiveError', ...)`](#addlistenerreceiveerror)
 * [Interfaces](#interfaces)
+* [Type Aliases](#type-aliases)
 
 </docgen-index>
 
@@ -268,13 +269,13 @@ addListener(events: 'receive', functions: (params: { socketId: number; buffer: s
 ### addListener('receiveError', ...)
 
 ```typescript
-addListener(events: 'receiveError', functions: (params: string) => void) => PluginListenerHandle
+addListener(events: 'receiveError', functions: (params: UdpReceiveError) => void) => PluginListenerHandle
 ```
 
-| Param           | Type                                     |
-| --------------- | ---------------------------------------- |
-| **`events`**    | <code>'receiveError'</code>              |
-| **`functions`** | <code>(params: string) =&gt; void</code> |
+| Param           | Type                                                                             |
+| --------------- | -------------------------------------------------------------------------------- |
+| **`events`**    | <code>'receiveError'</code>                                                      |
+| **`functions`** | <code>(params: <a href="#udpreceiveerror">UdpReceiveError</a>) =&gt; void</code> |
 
 **Returns:** <code><a href="#pluginlistenerhandle">PluginListenerHandle</a></code>
 
@@ -289,5 +290,13 @@ addListener(events: 'receiveError', functions: (params: string) => void) => Plug
 | Prop         | Type                                      |
 | ------------ | ----------------------------------------- |
 | **`remove`** | <code>() =&gt; Promise&lt;void&gt;</code> |
+
+
+### Type Aliases
+
+
+#### UdpReceiveError
+
+<code>{ code: number; message: string; }</code>
 
 </docgen-api>

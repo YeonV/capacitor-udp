@@ -252,7 +252,7 @@
       },
       {
         "name": "addListener",
-        "signature": "(events: 'receiveError', functions: (params: string) => void) => PluginListenerHandle",
+        "signature": "(events: 'receiveError', functions: (params: UdpReceiveError) => void) => PluginListenerHandle",
         "parameters": [
           {
             "name": "events",
@@ -262,14 +262,15 @@
           {
             "name": "functions",
             "docs": "",
-            "type": "(params: string) => void"
+            "type": "(params: UdpReceiveError) => void"
           }
         ],
         "returns": "PluginListenerHandle",
         "tags": [],
         "docs": "",
         "complexTypes": [
-          "PluginListenerHandle"
+          "PluginListenerHandle",
+          "UdpReceiveError"
         ],
         "slug": "addlistenerreceiveerror"
       }
@@ -295,6 +296,18 @@
     }
   ],
   "enums": [],
-  "typeAliases": [],
+  "typeAliases": [
+    {
+      "name": "UdpReceiveError",
+      "slug": "udpreceiveerror",
+      "docs": "",
+      "types": [
+        {
+          "text": "{\n  code: number;\n  message: string;\n}",
+          "complexTypes": []
+        }
+      ]
+    }
+  ],
   "pluginConfigs": []
 }
